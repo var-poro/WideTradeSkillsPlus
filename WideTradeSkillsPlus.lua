@@ -4,7 +4,7 @@ local _G = _G
 local GetSpellInfo = GetSpellInfo
 local GetNumSkillLines = GetNumSkillLines
 local GetSkillLineInfo = GetSkillLineInfo
-local IsAddOnLoaded = IsAddOnLoaded
+local IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or _G.IsAddOnLoaded
 local UnitAffectingCombat = UnitAffectingCombat
 local IsCurrentSpell = IsCurrentSpell
 local IsPassiveSpell = IsPassiveSpell
@@ -277,8 +277,8 @@ local function updateSize(frame)
     regions[4]:Hide()
     regions[5]:Hide()
   end
-  regions[9]:Hide()
-  regions[10]:Hide()
+if regions[9] then regions[9]:Hide() end
+if regions[10] then regions[10]:Hide() end
 
   if not IsAddOnLoaded("Aurora") and not IsAddOnLoaded("ElvUI") then
     local recipeInset = mainFrame:CreateTexture(nil, "ARTWORK")
@@ -377,10 +377,12 @@ local function refreshRecipes(frame)
             button.WTSPlusLevel:SetText("")
           end
           if not ClassicProfessionFilterSearchBoxMixIn then
-            if quantity == 0 then
-              button:SetText("      " .. recipe)
-            else
-              button:SetText("      " .. recipe .. " [" .. quantity .. "]")
+            if hdr ~= "header" then
+              if quality and quality > 0 then
+                button:SetText("      " .. recipe .. " [" .. quality .. "]")
+              else
+                button:SetText("      " .. recipe)
+              end
             end
           end
         else
