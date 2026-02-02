@@ -126,6 +126,54 @@ function UI.UpdateSize(frame)
 end
 
 function UI.RefreshRecipes(frame)
+  if frame:GetName() == "TradeSkillFrame"
+     and GetTradeSkillDisplaySkillLine
+     and GetTradeSkillDisplaySkillLine() == "Beast Training" then
+    return
+  end
+
+  local function hookFrame()
+    if not frame or not frame:IsShown() then
+      return
+    end
+
+    local skillButton, scrollFrame, getSkillInfo
+    if frame == TradeSkillFrame then
+      skillButton = "TradeSkillSkill"
+      scrollFrame = TradeSkillListScrollFrame
+      getSkillInfo = GetTradeSkillInfo
+    elseif frame == CraftFrame then
+      skillButton = "Craft"
+      scrollFrame = CraftListScrollFrame
+      getSkillInfo = GetCraftInfo
+    end
+
+    for i = 1, Utils.DISPLAY_SIZE do
+      local button = Utils._G[skillButton .. i]
+      if button then
+        if not button.WTSPlusLevel then
+          button.WTSPlusLevel = button:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+          button.WTSPlusLevel:SetPoint("RIGHT", button, "LEFT", 20, 2)
+        end
+
+        local offset = Utils.FauxScrollFrame_GetOffset(scrollFrame)
+        local index = i + offset
+        local recipe, hdr, _, _, _, _, level = getSkillInfo(index)
+        if recipe and level then
+          if level > 1 then
+            button.WTSPlusLevel:SetText(level)
+            button.WTSPlusLevel:SetTextColor(GetItemQualityColor(1))
+          else
+            button.WTSPlusLevel:SetText("")
+          end
+        else
+          button.WTSPlusLevel:SetText("")
+        end
+      end
+    end
+  end
+
+  Utils.hooksecurefunc(frame:GetName() .. "_Update", hookFrame)
 end
 
 function UI.SwitchPanel(self)
