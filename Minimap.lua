@@ -20,11 +20,9 @@ local function updateMinimapIcon()
     local _, _, icon = Utils.GetSpellInfo(mainTabs[1])
     minimapButton.icon:SetTexture(icon or "Interface\\Icons\\INV_Misc_Gear_01")
     minimapButton.icon:SetDesaturated(false)
-    minimapButton:Enable()
   else
     minimapButton.icon:SetTexture("Interface\\Icons\\INV_Misc_Gear_01")
     minimapButton.icon:SetDesaturated(true)
-    minimapButton:Disable()
   end
 end
 
@@ -101,15 +99,10 @@ function Minimap.Create()
     GameTooltip:AddLine(" ")
 
     local mainTabs = Professions.GetProfessions()
-    if mainTabs[1] then
-      local name1 = Utils.GetSpellInfo(mainTabs[1])
-      local name2 = mainTabs[2] and Utils.GetSpellInfo(mainTabs[2]) or name1
-      GameTooltip:AddLine("|cff00ff00Left-click:|r " .. name1)
-      GameTooltip:AddLine("|cff00ff00Right-click:|r " .. name2)
-    else
-      GameTooltip:AddLine("|cff888888No profession|r")
-    end
-
+    local name1 = mainTabs[1] and Utils.GetSpellInfo(mainTabs[1]) or "|cff888888not learned yet|r"
+    local name2 = mainTabs[2] and Utils.GetSpellInfo(mainTabs[2]) or "|cff888888not learned yet|r"
+    GameTooltip:AddLine("|cff00ff00Left-click:|r " .. name1)
+    GameTooltip:AddLine("|cff00ff00Right-click:|r " .. name2)
     GameTooltip:AddLine("|cff00ff00Middle-click:|r Hide button")
     GameTooltip:AddLine("|cff00ff00Drag:|r Move")
     GameTooltip:Show()
