@@ -1,9 +1,17 @@
-## Interface: 11507, 50500
+## Interface: 11507
 ## Title: WideTradeSkillsPlus
-## Notes:  Dual-pane trade skill windows with shortcuts
-## Author: StormtrooperTK421
+## Notes: Dual-pane trade skill windows with shortcuts
+## Author: Poro
 ## Version: 1.0.3
+## X-Original-Author: StormtrooperTK421
+## X-Website: https://github.com/var-poro/WideTradeSkillsPlus
 ## Dependencies: Blizzard_TradeSkillUI
 ## SavedVariablesPerCharacter: WTSPlusDB
-
+Config.lua
+Utils.lua
+Professions.lua
+Tabs.lua
+UI.lua
+Minimap.lua
+Options.lua
 WideTradeSkillsPlus.lua
