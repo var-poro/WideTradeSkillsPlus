@@ -9,6 +9,8 @@ function Config.Initialize()
     show = true,
     position = 220,
   }
+  WTSPlusDB.Favorites = WTSPlusDB.Favorites or {}
+  WTSPlusDB.ShowFavoritesOnly = WTSPlusDB.ShowFavoritesOnly or false
 
   local skinUI
   if IsAddOnLoaded("Aurora") then

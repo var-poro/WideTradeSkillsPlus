@@ -1,6 +1,7 @@
 local Tabs = {}
 local Utils = WideTradeSkillsPlus_Utils
 local Professions = WideTradeSkillsPlus_Professions
+local UI = WideTradeSkillsPlus_UI
 
 local numTabs = 0
 local skinUI
@@ -11,6 +12,7 @@ end
 
 local function updateTabState(self)
   local frame = self:GetParent()
+  local wasSelected = self.isSelected
   if frame == CraftFrame and not Utils.UnitAffectingCombat("player") then
     local profEnchantName = Professions.GetEnchantSpellName()
     if profEnchantName and not Utils.IsCurrentSpell(profEnchantName) then
@@ -24,9 +26,18 @@ local function updateTabState(self)
   if self.id and Utils.IsCurrentSpell(self.id) then
     self:SetChecked(true)
     self:RegisterForClicks()
+    self.isSelected = true
+    if not wasSelected and UI and UI.RefreshForFrame then
+      if frame == TradeSkillFrame then
+        UI.RefreshForFrame("TradeSkill")
+      elseif frame == CraftFrame then
+        UI.RefreshForFrame("Craft")
+      end
+    end
   else
     self:SetChecked(false)
     self:RegisterForClicks("AnyDown")
+    self.isSelected = false
   end
 end
 

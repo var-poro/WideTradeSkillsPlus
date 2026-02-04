@@ -96,7 +96,6 @@ function Minimap.Create()
   minimapButton:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:AddLine("WideTradeSkillsPlus")
-    GameTooltip:AddLine(" ")
 
     local mainTabs = Professions.GetProfessions()
     local name1 = mainTabs[1] and Utils.GetSpellInfo(mainTabs[1]) or "|cff888888not learned yet|r"

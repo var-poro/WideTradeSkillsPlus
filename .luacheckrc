@@ -18,6 +18,7 @@ read_globals = {
     "CloseCraft",
     "hooksecurefunc",
     "FauxScrollFrame_GetOffset",
+    "FauxScrollFrame_OnVerticalScroll",
     "GetAddOnMetadata",
     "UnitClass",
     "IsUsableSpell",

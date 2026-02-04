@@ -1,6 +1,7 @@
 local Config = WideTradeSkillsPlus_Config
 local Utils = WideTradeSkillsPlus_Utils
 local Professions = WideTradeSkillsPlus_Professions
+local Favorites = WideTradeSkillsPlus_Favorites
 local Tabs = WideTradeSkillsPlus_Tabs
 local UI = WideTradeSkillsPlus_UI
 local Minimap = WideTradeSkillsPlus_Minimap
@@ -14,10 +15,15 @@ f:RegisterEvent("PLAYER_LOGIN")
 f:RegisterEvent("ADDON_LOADED")
 f:RegisterEvent("SKILL_LINES_CHANGED")
 f:RegisterEvent("PLAYER_REGEN_ENABLED")
+f:RegisterEvent("TRADE_SKILL_SHOW")
+f:RegisterEvent("TRADE_SKILL_UPDATE")
+f:RegisterEvent("CRAFT_SHOW")
+f:RegisterEvent("CRAFT_UPDATE")
 
 f:SetScript("OnEvent", function(self, event, arg1)
   if event == "PLAYER_LOGIN" then
     skinUI = Config.Initialize()
+    Favorites.Initialize()
     Tabs.Initialize(skinUI)
     UI.Initialize(skinUI)
     Minimap.Create()
@@ -50,6 +56,14 @@ f:SetScript("OnEvent", function(self, event, arg1)
   elseif event == "PLAYER_REGEN_ENABLED" and delay then
     Tabs.Update()
     delay = false
+  elseif event == "TRADE_SKILL_SHOW" or event == "TRADE_SKILL_UPDATE" then
+    if UI and UI.RefreshForFrame then
+      UI.RefreshForFrame("TradeSkill")
+    end
+  elseif event == "CRAFT_SHOW" or event == "CRAFT_UPDATE" then
+    if UI and UI.RefreshForFrame then
+      UI.RefreshForFrame("Craft")
+    end
   end
 end)
 
