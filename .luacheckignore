@@ -1,0 +1,9 @@
+# Luacheck ignore file
+# Files or patterns to ignore
+
+# Documentation files
+*.md
+LICENSE
+
+# TOC files
+*.toc
